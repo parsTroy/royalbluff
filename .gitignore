@@ -1,0 +1,28 @@
+# Unreal Engine
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+*.vscode/
+.vscode/
+
+# Build Folders
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Config backups
+*.log
+*.tmp
+
+# Compiled Python
+__pycache__/
+*.py[cod]
