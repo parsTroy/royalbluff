@@ -26,3 +26,4 @@ Thumbs.db
 # Compiled Python
 __pycache__/
 *.py[cod]
+details.md
