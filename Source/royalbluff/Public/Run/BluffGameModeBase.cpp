@@ -8,11 +8,15 @@
 #include "Systems/ScoringSystem.h"
 #include "UI/BluffHUDWidget.h"
 #include "Run/BluffGameState.h"
+#include "Camera/BluffCameraActor.h"
+#include "Player/BluffPlayerController.h"
 
 ABluffGameModeBase::ABluffGameModeBase()
 {
 	// Set the GameState class
 	GameStateClass = ABluffGameState::StaticClass();
+	// Set the PlayerController class
+	PlayerControllerClass = ABluffPlayerController::StaticClass();
 	UE_LOG(LogTemp, Warning, TEXT("ABluffGameModeBase constructor called! GameStateClass set to: %s"), 
 		GameStateClass ? *GameStateClass->GetName() : TEXT("NULL"));
 }
@@ -78,6 +82,23 @@ void ABluffGameModeBase::BeginPlay()
 		{
 			GameState->SetPocket(Cards->Draw(2));
 			GameState->AddCommunityCards(Cards->Draw(3)); // flop
+		}
+	}
+
+	// Create camera for viewing
+	if (UWorld* World = GetWorld())
+	{
+		// Spawn a camera actor
+		ABluffCameraActor* Camera = World->SpawnActor<ABluffCameraActor>();
+		if (Camera)
+		{
+			// Set this camera as the view target
+			APlayerController* PC = World->GetFirstPlayerController();
+			if (PC)
+			{
+				PC->SetViewTarget(Camera);
+				UE_LOG(LogTemp, Warning, TEXT("Camera spawned and set as view target!"));
+			}
 		}
 	}
 
